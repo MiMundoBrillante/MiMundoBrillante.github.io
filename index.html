@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Mundo Brillante</title>
+    <style>
+        @font-face {
+            font-family: 'BitstromWera Nerd Font Mono';
+            src: url(BitstromWeraNerdFontMono-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: 'Mona Sans';
+            src: url(Mona-Sans.ttf);
+        }
+
+        html,
+        body {
+            font-family: 'BitstromWera Nerd Font Mono', monospace;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #gradient-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -999;
+            pointer-events: none;
+            --gradient-color-1: #c3e4ff;
+            --gradient-color-2: #6ec3f4;
+            --gradient-color-3: #eae2ff;
+            --gradient-color-4: #b9beff;
+        }
+
+        .sidebar {
+            background-color: rgba(245, 245, 245, 0.7);
+            height: 100%;
+            width: 42px;
+            position: fixed;
+            left: 0;
+            overflow-x: hidden;
+            transition: 0.5s;
+            font-size: 30px;
+            z-index: 4;
+        }
+
+        .sidebar.opened {
+            width: 270px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #494E52;
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            white-space: nowrap;
+        }
+
+        .sidebar a .name {
+            margin-left: 12px;
+            font-size: 18px;
+			font-family: 'Mona Sans';
+        }
+
+        .sidebar.opened a .name {
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #494E52;
+            color: #f5f5f5;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 3;
+        }
+        
+        .title {
+            font-family: 'Mona Sans', sans-serif;
+            font-weight: 600;
+            font-size: 138px;
+            white-space: nowrap;
+            position: absolute;
+            top: 250px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .title.eff1 {
+            color: rgba(68, 68, 68, 0.45);
+            mix-blend-mode: color-burn;
+            
+        }
+
+        .title.eff2 {
+            color: rgba(20, 20, 20, 0.2);
+        }
+
+        .subtitle {
+            font-family: 'Mona Sans', sans-serif;
+            color: rgba(48, 38, 136, 0.8);
+            font-weight: 300;
+            font-size: 28px;
+            position: absolute;
+            margin-top: 450px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+			}
+
+        .circle-container {
+            width: 170px;
+            height: 170px;
+            overflow: hidden;
+            border-radius: 50%;
+	        position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+
+        }
+
+        .circle-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gradient-canvas" data-transition-in></canvas>
+    <div class="title eff1">¡Hola Chuck!</div>
+    <div class="title eff2">¡Hola Chuck!</div>
+
+    <div class="subtitle">"El único límite para tus logros es tu propia mente."<br>    - Napoleon Hill</div>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="#">󰋜 <span class="name">Inicio</span></a>
+        <a href="#"> <span class="name">Anuncios</span></a>
+        <a href="#">󰃭 <span class="name">Calendario</span></a>
+        <a href="#"> <span class="name">Comunidad</span></a>
+        <a href="#"> <span class="name">Cosas por hacer</span></a>
+        <a href="#">󱚌 <span class="name">Mi diario</span></a>
+        <a href="#">󱫠 <span class="name">Cronómetro</span></a>
+        <a href="#">󰗚 <span class="name">Recursos de aprendizaje</span></a>
+        <a href="#"> <span class="name">Configuración</span></a>
+    </div>
+    
+    <div class="circle-container">
+        <img src="user.jpg" alt="User" />
+    </div>
+
+
+    <script type="module">
+        import { Gradient } from './Gradient.js'
+
+        const gradient = new Gradient()
+
+        gradient.initGradient('#gradient-canvas')
+    </script>
+
+
+	<script>
+	        const sidebar = document.getElementById('mySidebar');
+        const body = document.body;
+
+        function openSidebar() {
+            sidebar.classList.remove('closed');
+            sidebar.classList.add('opened');
+            body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('opened');
+            sidebar.classList.add('closed');
+            body.style.overflow = 'auto';
+        }
+
+        sidebar.addEventListener('mouseenter', openSidebar);
+        sidebar.addEventListener('mouseleave', closeSidebar);
+
+        document.addEventListener('click', function (event) {
+            if (!sidebar.contains(event.target)) {
+                closeSidebar();
+            }
+        });
+	</script>
+</body>
+
+</html>
